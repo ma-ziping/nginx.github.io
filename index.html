@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工智能技术介绍</title>
+    <style>
+        :root {
+            --primary-color: #0066FF;
+            --secondary-color: #4D4DFF;
+            --dark-color: #121212;
+            --light-color: #FFFFFF;
+            --gray-color: #888888;
+            --gradient-bg: linear-gradient(135deg, #0066FF 0%, #4D4DFF 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--light-color);
+            background-color: var(--dark-color);
+        }
+        
+        header {
+            background: var(--gradient-bg);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--dark-color);
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        .ai-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .ai-type-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .ai-type-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .applications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .application-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .application-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            color: #eee;
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background: #0A0A0A;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+                right: auto;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        /* 返回顶部按钮样式 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .back-to-top-arrow {
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 4px;
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+        }
+        
+        .ai-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .product-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .product-image {
+            width: 80px;
+            height: 80px;
+            margin-left: auto;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .product-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .product-card p {
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            flex-grow: 1;
+        }
+        
+        .product-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+        
+        .product-link:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* 添加悬浮输入框样式 */
+        .floating-input-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25%; /* 初始宽度为页面宽度的1/4 */
+            min-width: 200px; /* 设置最小宽度 */
+            max-width: 400px; /* 设置最大宽度 */
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .floating-input-wrapper {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .floating-input-wrapper:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            color: var(--light-color);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .floating-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .floating-input:focus {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .floating-input-container.hidden {
+            transform: translate(-50%, 100%);
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .floating-input-container {
+                bottom: 10px;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">AI技术探索</a>
+                <ul class="nav-links">
+                    <li><a href="#intro">介绍</a></li>
+                    <li><a href="#history">历史</a></li>
+                    <li><a href="#types">类型</a></li>
+                    <li><a href="#technology">技术</a></li>
+                    <li><a href="#ai-products">主流产品</a></li>
+                    <li><a href="#applications">应用</a></li>
+                    <li><a href="#future">未来</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h1>探索人工智能的奇妙世界</h1>
+            <p>人工智能正在改变我们的生活方式、工作方式和思考方式。从智能手机助手到自动驾驶汽车，AI技术无处不在。</p>
+            <a href="#intro" class="btn">开始探索</a>
+        </div>
+    </div>
+
+    <section id="intro">
+        <div class="container">
+            <div class="section-title">
+                <h2>什么是人工智能？</h2>
+                <p>人工智能是计算机科学的一个分支，致力于创造能够模拟人类智能行为的系统</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>模拟人类思维</h3>
+                    <p>AI系统能够学习、推理、感知环境，理解语言并做出决策，模拟人类的认知能力。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>数据驱动学习</h3>
+                    <p>通过分析大量数据，AI系统能够识别模式、提取规律，不断优化自身性能。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>自我完善</h3>
+                    <p>随着数据输入的增加和算法的迭代，现代AI系统能够不断学习和自我改进。</p>
+                </div>
+            </div>
+            
+            <div class="code-block">
+                <pre>
+<span class="highlight">// 简单的神经网络示例代码</span>
+class NeuralNetwork {
+    constructor(inputNodes, hiddenNodes, outputNodes) {
+        this.inputNodes = inputNodes;
+        this.hiddenNodes = hiddenNodes;
+        this.outputNodes = outputNodes;
+        
+        // 初始化权重
+        this.weightsIH = Matrix.random(this.hiddenNodes, this.inputNodes);
+        this.weightsHO = Matrix.random(this.outputNodes, this.hiddenNodes);
+        
+        // 设置学习率
+        this.learningRate = 0.1;
+    }
+    
+    train(inputs, targets) {
+        // 前向传播
+        let outputs = this.predict(inputs);
+        
+        // 转换目标为矩阵
+        let targetsMatrix = Matrix.fromArray(targets);
+        
+        // 计算输出层误差
+        let outputErrors = Matrix.subtract(targetsMatrix, outputs);
+        
+        // 反向传播...
+    }
+    
+    predict(inputs) {
+        // 前向传播计算
+    }
+}</pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="history">
+        <div class="container">
+            <div class="section-title">
+                <h2>人工智能发展历程</h2>
+                <p>从概念的提出到如今的广泛应用，人工智能经历了漫长而曲折的发展历程</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1950年代</div>
+                        <h3>AI概念诞生</h3>
+                        <p>图灵测试提出，达特茅斯会议正式确立"人工智能"术语</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1960-1970年代</div>
+                        <h3>早期AI研究</h3>
+                        <p>专家系统兴起，ELIZA聊天机器人诞生</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1980-1990年代</div>
+                        <h3>第一次AI冬天与复兴</h3>
+                        <p>机器学习算法发展，神经网络研究重获关注</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1997年</div>
+                        <h3>深蓝战胜国际象棋冠军</h3>
+                        <p>IBM深蓝计算机击败国际象棋世界冠军卡斯帕罗夫</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2010年代</div>
+                        <h3>深度学习革命</h3>
+                        <p>计算能力提升与大数据推动深度学习技术快速发展</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2016年</div>
+                        <h3>AlphaGo战胜围棋冠军</h3>
+                        <p>谷歌DeepMind的AlphaGo击败围棋世界冠军李世石</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2020年代</div>
+                        <h3>大型语言模型时代</h3>
+                        <p>ChatGPT等大型语言模型出现，AI进入新阶段</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="types">
+        <div class="container">
+            <div class="section-title">
+                <h2>人工智能的主要类型</h2>
+                <p>根据能力范围和实现方式，人工智能可以分为不同的类型</p>
+            </div>
+            
+            <div class="ai-types">
+                <div class="ai-type-card">
+                    <h3>弱人工智能 (ANI)</h3>
+                    <p>专注于解决特定任务的AI系统，如语音助手、图像识别系统等。目前大多数AI系统属于这一类。</p>
+                    <p>例如：Siri、Alexa、人脸识别系统、推荐算法</p>
+                </div>
+                <div class="ai-type-card">
+                    <h3>强人工智能 (AGI)</h3>
+                    <p>具有与人类相当的智能水平，能够理解、学习并执行任何人类可以完成的智力任务。目前仍在研究阶段。</p>
+                    <p>例如：科幻作品中的机器人、拥有自我意识的AI系统</p>
+                </div>
+                <div class="ai-type-card">
+                    <h3>超级人工智能 (ASI)</h3>
+                    <p>智能水平超越人类的理论性AI系统，在所有领域都比最聪明的人类表现更出色。目前仅存在于理论中。</p>
+                    <p>例如：科幻电影中的天网、奇点理论描述的超智能系统</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心AI技术</h2>
+                <p>人工智能由多种关键技术和算法支撑，使计算机能够学习、理解和决策</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h3>机器学习</h3>
+                    <p>使计算机能够从数据中学习并改进，而无需明确编程。包括监督学习、无监督学习和强化学习等。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>深度学习</h3>
+                    <p>使用多层神经网络处理复杂数据，能够自动提取特征，广泛应用于语音识别、图像处理等领域。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>自然语言处理</h3>
+                    <p>使计算机能够理解、解释和生成人类语言，支持语音助手、翻译系统、聊天机器人等应用。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>计算机视觉</h3>
+                    <p>使计算机能够"看到"并理解视觉信息，应用于人脸识别、物体检测、自动驾驶等领域。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>强化学习</h3>
+                    <p>通过试错和奖励机制学习最优策略，广泛应用于游戏AI、机器人控制和资源调度等领域。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>知识表示与推理</h3>
+                    <p>构建知识库并使用逻辑规则进行推理，支持专家系统和语义网等应用。</p>
+                </div>
+            </div>
+            
+            <div class="code-block">
+                <pre>
+<span class="highlight"># 简单机器学习示例 - Python中的决策树</span>
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+
+# 加载数据
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# 分割训练集和测试集
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
+# 创建并训练模型
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+
+# 预测
+predictions = model.predict(X_test)
+
+# 评估模型
+accuracy = model.score(X_test, y_test)
+print(f"模型准确率: {accuracy:.2f}")</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主流AI产品介绍 -->
+    <section id="ai-products">
+        <div class="container">
+            <div class="section-title">
+                <h2>主流人工智能产品</h2>
+                <p>当前市场上备受瞩目的人工智能产品及服务，这些技术正在改变各行各业</p>
+            </div>
+            
+            <div class="ai-products-grid">
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-logo" style="color: var(--primary-color);">ChatGPT</div>
+                        <div class="product-image">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-sm absolute left-0 origin-center md:w-[28px] BrandIsland_blossom__z_RyT" width="28" viewBox="0 0 156 154" fill="none"><path d="M59.7325 56.1915V41.6219C59.7325 40.3948 60.1929 39.4741 61.266 38.8613L90.5592 21.9915C94.5469 19.6912 99.3013 18.6181 104.208 18.6181C122.612 18.6181 134.268 32.8813 134.268 48.0637C134.268 49.1369 134.268 50.364 134.114 51.5911L103.748 33.8005C101.908 32.7274 100.067 32.7274 98.2267 33.8005L59.7325 56.1915ZM128.133 112.937V78.1222C128.133 75.9745 127.212 74.441 125.372 73.3678L86.878 50.9768L99.4538 43.7682C100.527 43.1554 101.448 43.1554 102.521 43.7682L131.814 60.6381C140.25 65.5464 145.923 75.9745 145.923 86.0961C145.923 97.7512 139.023 108.487 128.133 112.935V112.937ZM50.6841 82.2638L38.1083 74.9028C37.0351 74.29 36.5748 73.3693 36.5748 72.1422V38.4025C36.5748 21.9929 49.1506 9.5696 66.1744 9.5696C72.6162 9.5696 78.5962 11.7174 83.6585 15.5511L53.4461 33.0352C51.6062 34.1084 50.6855 35.6419 50.6855 37.7897V82.2653L50.6841 82.2638ZM77.7533 97.9066L59.7325 87.785V66.3146L77.7533 56.193L95.7725 66.3146V87.785L77.7533 97.9066ZM89.3321 144.53C82.8903 144.53 76.9103 142.382 71.848 138.549L102.06 121.064C103.9 119.991 104.821 118.458 104.821 116.31V71.8343L117.551 79.1954C118.624 79.8082 119.084 80.7289 119.084 81.956V115.696C119.084 132.105 106.354 144.529 89.3321 144.529V144.53ZM52.9843 110.33L23.6911 93.4601C15.2554 88.5517 9.58181 78.1237 9.58181 68.0021C9.58181 56.193 16.6365 45.611 27.5248 41.163V76.1299C27.5248 78.2776 28.4455 79.8111 30.2854 80.8843L68.6271 103.121L56.0513 110.33C54.9781 110.943 54.0574 110.943 52.9843 110.33ZM51.2983 135.482C33.9681 135.482 21.2384 122.445 21.2384 106.342C21.2384 105.115 21.3923 103.888 21.5448 102.661L51.7572 120.145C53.5971 121.218 55.4385 121.218 57.2784 120.145L95.7725 97.9081V112.478C95.7725 113.705 95.3122 114.625 94.239 115.238L64.9458 132.108C60.9582 134.408 56.2037 135.482 51.2969 135.482H51.2983ZM89.3321 153.731C107.889 153.731 123.378 140.542 126.907 123.058C144.083 118.61 155.126 102.507 155.126 86.0976C155.126 75.3617 150.525 64.9336 142.243 57.4186C143.01 54.1977 143.471 50.9768 143.471 47.7573C143.471 25.8267 125.68 9.41567 105.129 9.41567C100.989 9.41567 97.0011 10.0285 93.0134 11.4095C86.1112 4.66126 76.6024 0.367188 66.1744 0.367188C47.6171 0.367188 32.1282 13.5558 28.5994 31.0399C11.4232 35.4879 0.380859 51.5911 0.380859 68.0006C0.380859 78.7365 4.98133 89.1645 13.2631 96.6795C12.4963 99.9004 12.036 103.121 12.036 106.341C12.036 128.271 29.8265 144.682 50.3777 144.682C54.5178 144.682 58.5055 144.07 62.4931 142.689C69.3938 149.437 78.9026 153.731 89.3321 153.731Z" fill="currentColor"></path></svg>
+                        </div>
+                    </div>
+                    <h3>OpenAI ChatGPT</h3>
+                    <p>OpenAI开发的大型语言模型，能够生成类人文本，回答问题，协助创作，目前最流行的AI聊天助手之一。</p>
+                    <a href="https://chat.openai.com" target="_blank" class="product-link">访问官网</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-logo" style="color: #1cb5b5;">文心一言</div>
+                        <div class="product-image">
+                            <img alt="logo" class="qbUby_dV" src="https://ebui-cdn.cdn.bcebos.com/yiyan-logo.png">
+                        </div>
+                    </div>
+                    <h3>百度文心一言</h3>
+                    <p>百度推出的中文大语言模型，能够创作文章、诗歌，回答问题，提供知识服务，中文处理能力出色。</p>
+                    <a href="https://yiyan.baidu.com" target="_blank" class="product-link">访问官网</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-logo" style="color: #1a73e8;">Gemini</div>
+                        <div class="product-image">
+                            <span _ngcontent-ng-c3278355877="" data-test-id="bard-text" class="bard-text"> Gemini </span>
+                        </div>
+                    </div>
+                    <h3>Google Gemini</h3>
+                    <p>谷歌的多模态AI模型，具备理解文本、图像、音频和视频的能力，集成于多种谷歌服务中。</p>
+                    <a href="https://gemini.google.com" target="_blank" class="product-link">访问官网</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-logo" style="color: #20b473;">讯飞星火</div>
+                        <div class="product-image">
+                            <img src="https://openres.xfyun.cn/xfyundoc/2024-04-26/1396db8a-313b-40f5-be2a-5babcad9cd64/1714102184743/sparklogo.svg" alt="讯飞星火大模型">
+                        </div>
+                    </div>
+                    <h3>科大讯飞星火认知大模型</h3>
+                    <p>科大讯飞推出的大规模语言模型，擅长中文理解与生成，支持多种场景应用，特别在垂直领域有深度优化。</p>
+                    <a href="https://xinghuo.xfyun.cn" target="_blank" class="product-link">访问官网</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-logo" style="color: #00a0e9;">通义千问</div>
+                        <div class="product-image">
+                            <img src="data:image/png;base64,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" alt="通义千问">
+                        </div>
+                    </div>
+                    <h3>阿里通义千问</h3>
+                    <p>阿里巴巴达摩院开发的大语言模型，具备强大的知识理解、逻辑推理和多轮对话能力，支持中英双语。</p>
+                    <a href="https://tongyi.aliyun.com" target="_blank" class="product-link">访问官网</a>
+                </div>
+                
+                
+                
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-logo" style="color: #8848d0;">DeepSeek</div>
+                        <div class="product-image">
+                            <img alt="DeepSeek Logo" loading="lazy" width="780" height="165" decoding="async" data-nimg="1" class="max-w-28 absolute top-4 left-4" style="color:transparent" srcset="https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_828 1x, https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_1920 2x" src="https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_1920">
+                        </div>
+                    </div>
+                    <h3>DeepSeek</h3>
+                    <p>由深度求索AI团队开发的新一代开源大语言模型，以其强大的推理能力和卓越的编程能力在国际AI领域崭露头角。</p>
+                    <a href="https://www.deepseek.com" target="_blank" class="product-link">访问官网</a>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <p style="max-width: 700px; margin: 0 auto 1.5rem;">
+                    这些只是众多优秀AI产品中的一部分。值得注意的是，中国在人工智能领域的快速发展已经取得了显著成果，
+                    国产大模型在中文处理、本地化服务等方面具有独特优势。随着全球AI技术的进步，中国与国际知名AI产品共同
+                    推动着人工智能的创新应用，改变着我们的工作方式和生活方式。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="applications">
+        <div class="container">
+            <div class="section-title">
+                <h2>人工智能的广泛应用</h2>
+                <p>AI技术已经渗透到我们生活和工作的各个方面，带来了革命性的变化</p>
+            </div>
+            
+            <div class="applications">
+                <div class="application-card">
+                    <h3>医疗健康</h3>
+                    <p>AI辅助疾病诊断、医学影像分析、药物开发和个性化医疗方案设计，提高医疗效率和准确性。</p>
+                </div>
+                <div class="application-card">
+                    <h3>金融服务</h3>
+                    <p>欺诈检测、算法交易、风险评估和个性化金融建议，提高金融系统的安全性和效率。</p>
+                </div>
+                <div class="application-card">
+                    <h3>智能交通</h3>
+                    <p>自动驾驶汽车、交通流量优化、路线规划和安全系统，改善交通体验和安全性。</p>
+                </div>
+                <div class="application-card">
+                    <h3>教育</h3>
+                    <p>个性化学习体验、智能内容创建、自动评分系统和学习进度分析，提升教育质量和效果。</p>
+                </div>
+                <div class="application-card">
+                    <h3>制造业</h3>
+                    <p>预测性维护、质量控制、生产效率优化和供应链管理，提高生产效率和产品质量。</p>
+                </div>
+                <div class="application-card">
+                    <h3>创意产业</h3>
+                    <p>内容生成、设计辅助、音乐创作和游戏开发，拓展创意表达的可能性。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="future">
+        <div class="container">
+            <div class="section-title">
+                <h2>人工智能的未来展望</h2>
+                <p>AI技术正在快速发展，未来将带来更多可能性和挑战</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h3>技术突破</h3>
+                    <p>更强大的算法、更高效的学习方法和全新的AI架构将不断涌现，推动AI能力的边界。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>人机协作</h3>
+                    <p>AI将与人类形成更紧密的协作关系，赋能人类而非替代人类，创造新的工作方式和生活方式。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>伦理与监管</h3>
+                    <p>AI的广泛应用将引发更多伦理和监管讨论，需要建立适当的规则和标准确保AI的安全和公平。</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3>与AI共创美好未来</h3>
+                <p style="max-width: 700px; margin: 1rem auto 2rem;">
+                    人工智能的发展需要技术专家、政策制定者、伦理学家和社会各界的共同参与。
+                    理解AI技术不仅有助于我们适应这个变化的世界，也能让我们更好地参与塑造AI的未来。
+                </p>
+                <a href="#" class="btn">继续学习</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#intro">AI介绍</a></li>
+                <li><a href="#history">历史发展</a></li>
+                <li><a href="#types">AI类型</a></li>
+                <li><a href="#technology">核心技术</a></li>
+                <li><a href="#ai-products">主流产品</a></li>
+                <li><a href="#applications">应用领域</a></li>
+                <li><a href="#future">未来展望</a></li>
+            </ul>
+            <p>&copy; 2024 AI技术探索. 保留所有权利.</p>
+            <p style="margin-top: 1rem; color: var(--gray-color);">设计者：麻子平 | 学号：202208010326</p>
+        </div>
+    </footer>
+    
+    <!-- 返回顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="back-to-top-arrow"></i>
+    </div>
+    
+    <!-- 添加悬浮输入框 -->
+    <div class="floating-input-container" id="floatingInput">
+        <div class="floating-input-wrapper">
+            <input type="text" class="floating-input" placeholder="Try AI chat..." id="aiChatInput">
+        </div>
+    </div>
+    
+    <script>
+        // 返回顶部功能
+        const backToTopButton = document.getElementById('backToTop');
+        
+        // 监听滚动事件
+        window.addEventListener('scroll', () => {
+            // 当页面滚动超过500像素时显示按钮
+            if (window.scrollY > 500) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        // 点击按钮返回顶部
+        backToTopButton.addEventListener('click', () => {
+            // 平滑滚动到顶部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 添加悬浮输入框相关功能
+        const floatingInput = document.getElementById('floatingInput');
+        const aiChatInput = document.getElementById('aiChatInput');
+        let lastScrollTop = 0;
+
+        // 监听滚动事件，控制输入框的显示和隐藏
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 向下滚动时隐藏，向上滚动时显示
+            if (scrollTop > lastScrollTop) {
+                floatingInput.classList.add('hidden');
+            } else {
+                floatingInput.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // 输入框获得焦点时的效果
+        aiChatInput.addEventListener('focus', () => {
+            floatingInput.querySelector('.floating-input-wrapper').style.transform = 'scale(1.02)';
+        });
+
+        aiChatInput.addEventListener('blur', () => {
+            floatingInput.querySelector('.floating-input-wrapper').style.transform = 'scale(1)';
+        });
+
+        // 输入框回车事件
+        aiChatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                // 这里可以添加发送消息的逻辑
+                console.log('发送消息:', aiChatInput.value);
+                aiChatInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html> 
