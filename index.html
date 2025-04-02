@@ -267,9 +267,24 @@
         .code-block pre {
             font-family: 'Courier New', monospace;
             color: #eee;
+            position: relative;
         }
-        
-        .highlight {
+
+        .code-block pre .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: #fff;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .code-block pre .highlight {
             color: var(--primary-color);
         }
         
@@ -514,9 +529,147 @@
                 width: 95%;
             }
         }
+
+        /* 添加语言切换按钮样式 */
+        .language-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .language-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .language-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* 添加语言切换动画 */
+        .fade {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fade.show {
+            opacity: 1;
+        }
+
+        /* 添加社交媒体图标样式 */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .social-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+
+        /* 添加AI产品滚动展示的样式 */
+        .products-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .products-row {
+            display: flex;
+            position: relative;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .products-row:nth-child(1) {
+            animation-name: scrollRight;
+            animation-duration: 30s;
+        }
+
+        .products-row:nth-child(2) {
+            animation-name: scrollRight;
+            animation-duration: 25s;
+            animation-delay: -12.5s;
+        }
+
+        .products-row:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollRight {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .product-card {
+            flex-shrink: 0;
+            width: 300px;
+            margin: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 102, 0.3);
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
+    <!-- 添加语言切换按钮 -->
+    <div class="language-switch">
+        <button class="language-btn active" data-lang="zh">中文</button>
+        <button class="language-btn" data-lang="en">English</button>
+    </div>
+
     <header>
         <div class="container">
             <nav>
@@ -568,8 +721,7 @@
             </div>
             
             <div class="code-block">
-                <pre>
-<span class="highlight">// 简单的神经网络示例代码</span>
+                <pre id="neural-network-code"><span class="highlight">// 简单的神经网络示例代码</span>
 class NeuralNetwork {
     constructor(inputNodes, hiddenNodes, outputNodes) {
         this.inputNodes = inputNodes;
@@ -764,79 +916,81 @@ print(f"模型准确率: {accuracy:.2f}")</pre>
                 <p>当前市场上备受瞩目的人工智能产品及服务，这些技术正在改变各行各业</p>
             </div>
             
-            <div class="ai-products-grid">
-                <div class="product-card">
-                    <div class="product-header">
-                        <div class="product-logo" style="color: var(--primary-color);">ChatGPT</div>
-                        <div class="product-image">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-sm absolute left-0 origin-center md:w-[28px] BrandIsland_blossom__z_RyT" width="28" viewBox="0 0 156 154" fill="none"><path d="M59.7325 56.1915V41.6219C59.7325 40.3948 60.1929 39.4741 61.266 38.8613L90.5592 21.9915C94.5469 19.6912 99.3013 18.6181 104.208 18.6181C122.612 18.6181 134.268 32.8813 134.268 48.0637C134.268 49.1369 134.268 50.364 134.114 51.5911L103.748 33.8005C101.908 32.7274 100.067 32.7274 98.2267 33.8005L59.7325 56.1915ZM128.133 112.937V78.1222C128.133 75.9745 127.212 74.441 125.372 73.3678L86.878 50.9768L99.4538 43.7682C100.527 43.1554 101.448 43.1554 102.521 43.7682L131.814 60.6381C140.25 65.5464 145.923 75.9745 145.923 86.0961C145.923 97.7512 139.023 108.487 128.133 112.935V112.937ZM50.6841 82.2638L38.1083 74.9028C37.0351 74.29 36.5748 73.3693 36.5748 72.1422V38.4025C36.5748 21.9929 49.1506 9.5696 66.1744 9.5696C72.6162 9.5696 78.5962 11.7174 83.6585 15.5511L53.4461 33.0352C51.6062 34.1084 50.6855 35.6419 50.6855 37.7897V82.2653L50.6841 82.2638ZM77.7533 97.9066L59.7325 87.785V66.3146L77.7533 56.193L95.7725 66.3146V87.785L77.7533 97.9066ZM89.3321 144.53C82.8903 144.53 76.9103 142.382 71.848 138.549L102.06 121.064C103.9 119.991 104.821 118.458 104.821 116.31V71.8343L117.551 79.1954C118.624 79.8082 119.084 80.7289 119.084 81.956V115.696C119.084 132.105 106.354 144.529 89.3321 144.529V144.53ZM52.9843 110.33L23.6911 93.4601C15.2554 88.5517 9.58181 78.1237 9.58181 68.0021C9.58181 56.193 16.6365 45.611 27.5248 41.163V76.1299C27.5248 78.2776 28.4455 79.8111 30.2854 80.8843L68.6271 103.121L56.0513 110.33C54.9781 110.943 54.0574 110.943 52.9843 110.33ZM51.2983 135.482C33.9681 135.482 21.2384 122.445 21.2384 106.342C21.2384 105.115 21.3923 103.888 21.5448 102.661L51.7572 120.145C53.5971 121.218 55.4385 121.218 57.2784 120.145L95.7725 97.9081V112.478C95.7725 113.705 95.3122 114.625 94.239 115.238L64.9458 132.108C60.9582 134.408 56.2037 135.482 51.2969 135.482H51.2983ZM89.3321 153.731C107.889 153.731 123.378 140.542 126.907 123.058C144.083 118.61 155.126 102.507 155.126 86.0976C155.126 75.3617 150.525 64.9336 142.243 57.4186C143.01 54.1977 143.471 50.9768 143.471 47.7573C143.471 25.8267 125.68 9.41567 105.129 9.41567C100.989 9.41567 97.0011 10.0285 93.0134 11.4095C86.1112 4.66126 76.6024 0.367188 66.1744 0.367188C47.6171 0.367188 32.1282 13.5558 28.5994 31.0399C11.4232 35.4879 0.380859 51.5911 0.380859 68.0006C0.380859 78.7365 4.98133 89.1645 13.2631 96.6795C12.4963 99.9004 12.036 103.121 12.036 106.341C12.036 128.271 29.8265 144.682 50.3777 144.682C54.5178 144.682 58.5055 144.07 62.4931 142.689C69.3938 149.437 78.9026 153.731 89.3321 153.731Z" fill="currentColor"></path></svg>
+            <div class="products-container">
+                <div class="products-row">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-logo" style="color: var(--primary-color);">ChatGPT</div>
+                            <div class="product-image">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-sm absolute left-0 origin-center md:w-[28px] BrandIsland_blossom__z_RyT" width="28" viewBox="0 0 156 154" fill="none"><path d="M59.7325 56.1915V41.6219C59.7325 40.3948 60.1929 39.4741 61.266 38.8613L90.5592 21.9915C94.5469 19.6912 99.3013 18.6181 104.208 18.6181C122.612 18.6181 134.268 32.8813 134.268 48.0637C134.268 49.1369 134.268 50.364 134.114 51.5911L103.748 33.8005C101.908 32.7274 100.067 32.7274 98.2267 33.8005L59.7325 56.1915ZM128.133 112.937V78.1222C128.133 75.9745 127.212 74.441 125.372 73.3678L86.878 50.9768L99.4538 43.7682C100.527 43.1554 101.448 43.1554 102.521 43.7682L131.814 60.6381C140.25 65.5464 145.923 75.9745 145.923 86.0961C145.923 97.7512 139.023 108.487 128.133 112.935V112.937ZM50.6841 82.2638L38.1083 74.9028C37.0351 74.29 36.5748 73.3693 36.5748 72.1422V38.4025C36.5748 21.9929 49.1506 9.5696 66.1744 9.5696C72.6162 9.5696 78.5962 11.7174 83.6585 15.5511L53.4461 33.0352C51.6062 34.1084 50.6855 35.6419 50.6855 37.7897V82.2653L50.6841 82.2638ZM77.7533 97.9066L59.7325 87.785V66.3146L77.7533 56.193L95.7725 66.3146V87.785L77.7533 97.9066ZM89.3321 144.53C82.8903 144.53 76.9103 142.382 71.848 138.549L102.06 121.064C103.9 119.991 104.821 118.458 104.821 116.31V71.8343L117.551 79.1954C118.624 79.8082 119.084 80.7289 119.084 81.956V115.696C119.084 132.105 106.354 144.529 89.3321 144.529V144.53ZM52.9843 110.33L23.6911 93.4601C15.2554 88.5517 9.58181 78.1237 9.58181 68.0021C9.58181 56.193 16.6365 45.611 27.5248 41.163V76.1299C27.5248 78.2776 28.4455 79.8111 30.2854 80.8843L68.6271 103.121L56.0513 110.33C54.9781 110.943 54.0574 110.943 52.9843 110.33ZM51.2983 135.482C33.9681 135.482 21.2384 122.445 21.2384 106.342C21.2384 105.115 21.3923 103.888 21.5448 102.661L51.7572 120.145C53.5971 121.218 55.4385 121.218 57.2784 120.145L95.7725 97.9081V112.478C95.7725 113.705 95.3122 114.625 94.239 115.238L64.9458 132.108C60.9582 134.408 56.2037 135.482 51.2969 135.482H51.2983ZM89.3321 153.731C107.889 153.731 123.378 140.542 126.907 123.058C144.083 118.61 155.126 102.507 155.126 86.0976C155.126 75.3617 150.525 64.9336 142.243 57.4186C143.01 54.1977 143.471 50.9768 143.471 47.7573C143.471 25.8267 125.68 9.41567 105.129 9.41567C100.989 9.41567 97.0011 10.0285 93.0134 11.4095C86.1112 4.66126 76.6024 0.367188 66.1744 0.367188C47.6171 0.367188 32.1282 13.5558 28.5994 31.0399C11.4232 35.4879 0.380859 51.5911 0.380859 68.0006C0.380859 78.7365 4.98133 89.1645 13.2631 96.6795C12.4963 99.9004 12.036 103.121 12.036 106.341C12.036 128.271 29.8265 144.682 50.3777 144.682C54.5178 144.682 58.5055 144.07 62.4931 142.689C69.3938 149.437 78.9026 153.731 89.3321 153.731Z" fill="currentColor"></path></svg>
+                            </div>
                         </div>
+                        <h3>OpenAI ChatGPT</h3>
+                        <p>OpenAI开发的大型语言模型，能够生成类人文本，回答问题，协助创作，目前最流行的AI聊天助手之一。</p>
+                        <a href="https://chat.openai.com" target="_blank" class="product-link">访问官网</a>
                     </div>
-                    <h3>OpenAI ChatGPT</h3>
-                    <p>OpenAI开发的大型语言模型，能够生成类人文本，回答问题，协助创作，目前最流行的AI聊天助手之一。</p>
-                    <a href="https://chat.openai.com" target="_blank" class="product-link">访问官网</a>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-header">
-                        <div class="product-logo" style="color: #1cb5b5;">文心一言</div>
-                        <div class="product-image">
-                            <img alt="logo" class="qbUby_dV" src="https://ebui-cdn.cdn.bcebos.com/yiyan-logo.png">
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-logo" style="color: #1cb5b5;">文心一言</div>
+                            <div class="product-image">
+                                <img alt="logo" class="qbUby_dV" src="https://ebui-cdn.cdn.bcebos.com/yiyan-logo.png">
+                            </div>
                         </div>
+                        <h3>百度文心一言</h3>
+                        <p>百度推出的中文大语言模型，能够创作文章、诗歌，回答问题，提供知识服务，中文处理能力出色。</p>
+                        <a href="https://yiyan.baidu.com" target="_blank" class="product-link">访问官网</a>
                     </div>
-                    <h3>百度文心一言</h3>
-                    <p>百度推出的中文大语言模型，能够创作文章、诗歌，回答问题，提供知识服务，中文处理能力出色。</p>
-                    <a href="https://yiyan.baidu.com" target="_blank" class="product-link">访问官网</a>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-header">
-                        <div class="product-logo" style="color: #1a73e8;">Gemini</div>
-                        <div class="product-image">
-                            <span _ngcontent-ng-c3278355877="" data-test-id="bard-text" class="bard-text"> Gemini </span>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-logo" style="color: #1a73e8;">Gemini</div>
+                            <div class="product-image">
+                                <span _ngcontent-ng-c3278355877="" data-test-id="bard-text" class="bard-text"> Gemini </span>
+                            </div>
                         </div>
+                        <h3>Google Gemini</h3>
+                        <p>谷歌的多模态AI模型，具备理解文本、图像、音频和视频的能力，集成于多种谷歌服务中。</p>
+                        <a href="https://gemini.google.com" target="_blank" class="product-link">访问官网</a>
                     </div>
-                    <h3>Google Gemini</h3>
-                    <p>谷歌的多模态AI模型，具备理解文本、图像、音频和视频的能力，集成于多种谷歌服务中。</p>
-                    <a href="https://gemini.google.com" target="_blank" class="product-link">访问官网</a>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-header">
-                        <div class="product-logo" style="color: #20b473;">讯飞星火</div>
-                        <div class="product-image">
-                            <img src="https://openres.xfyun.cn/xfyundoc/2024-04-26/1396db8a-313b-40f5-be2a-5babcad9cd64/1714102184743/sparklogo.svg" alt="讯飞星火大模型">
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-logo" style="color: #20b473;">讯飞星火</div>
+                            <div class="product-image">
+                                <img src="https://openres.xfyun.cn/xfyundoc/2024-04-26/1396db8a-313b-40f5-be2a-5babcad9cd64/1714102184743/sparklogo.svg" alt="讯飞星火大模型">
+                            </div>
                         </div>
+                        <h3>科大讯飞星火认知大模型</h3>
+                        <p>科大讯飞推出的大规模语言模型，擅长中文理解与生成，支持多种场景应用，特别在垂直领域有深度优化。</p>
+                        <a href="https://xinghuo.xfyun.cn" target="_blank" class="product-link">访问官网</a>
                     </div>
-                    <h3>科大讯飞星火认知大模型</h3>
-                    <p>科大讯飞推出的大规模语言模型，擅长中文理解与生成，支持多种场景应用，特别在垂直领域有深度优化。</p>
-                    <a href="https://xinghuo.xfyun.cn" target="_blank" class="product-link">访问官网</a>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-header">
-                        <div class="product-logo" style="color: #00a0e9;">通义千问</div>
-                        <div class="product-image">
-                            <img src="data:image/png;base64,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" alt="通义千问">
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-logo" style="color: #00a0e9;">通义千问</div>
+                            <div class="product-image">
+                                <img src="data:image/png;base64,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" alt="通义千问">
+                            </div>
                         </div>
+                        <h3>阿里通义千问</h3>
+                        <p>阿里巴巴达摩院开发的大语言模型，具备强大的知识理解、逻辑推理和多轮对话能力，支持中英双语。</p>
+                        <a href="https://tongyi.aliyun.com" target="_blank" class="product-link">访问官网</a>
                     </div>
-                    <h3>阿里通义千问</h3>
-                    <p>阿里巴巴达摩院开发的大语言模型，具备强大的知识理解、逻辑推理和多轮对话能力，支持中英双语。</p>
-                    <a href="https://tongyi.aliyun.com" target="_blank" class="product-link">访问官网</a>
-                </div>
-                
-                
-                
-                <div class="product-card">
-                    <div class="product-header">
-                        <div class="product-logo" style="color: #8848d0;">DeepSeek</div>
-                        <div class="product-image">
-                            <img alt="DeepSeek Logo" loading="lazy" width="780" height="165" decoding="async" data-nimg="1" class="max-w-28 absolute top-4 left-4" style="color:transparent" srcset="https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_828 1x, https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_1920 2x" src="https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_1920">
+                    
+                    
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-logo" style="color: #8848d0;">DeepSeek</div>
+                            <div class="product-image">
+                                <img alt="DeepSeek Logo" loading="lazy" width="780" height="165" decoding="async" data-nimg="1" class="max-w-28 absolute top-4 left-4" style="color:transparent" srcset="https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_828 1x, https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_1920 2x" src="https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_1920">
+                            </div>
                         </div>
+                        <h3>DeepSeek</h3>
+                        <p>由深度求索AI团队开发的新一代开源大语言模型，以其强大的推理能力和卓越的编程能力在国际AI领域崭露头角。</p>
+                        <a href="https://www.deepseek.com" target="_blank" class="product-link">访问官网</a>
                     </div>
-                    <h3>DeepSeek</h3>
-                    <p>由深度求索AI团队开发的新一代开源大语言模型，以其强大的推理能力和卓越的编程能力在国际AI领域崭露头角。</p>
-                    <a href="https://www.deepseek.com" target="_blank" class="product-link">访问官网</a>
                 </div>
             </div>
             
@@ -930,6 +1084,31 @@ print(f"模型准确率: {accuracy:.2f}")</pre>
                 <li><a href="#applications">应用领域</a></li>
                 <li><a href="#future">未来展望</a></li>
             </ul>
+            
+            <!-- 添加社交媒体图标 -->
+            <div class="social-icons">
+                <a href="https://instagram.com" target="_blank" class="social-icon" title="Instagram">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com" target="_blank" class="social-icon" title="Twitter">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://tiktok.com" target="_blank" class="social-icon" title="TikTok">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                    </svg>
+                </a>
+                <a href="https://facebook.com" target="_blank" class="social-icon" title="Facebook">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+            </div>
+            
             <p>&copy; 2024 AI技术探索. 保留所有权利.</p>
             <p style="margin-top: 1rem; color: var(--gray-color);">设计者：麻子平 | 学号：202208010326</p>
         </div>
@@ -948,6 +1127,155 @@ print(f"模型准确率: {accuracy:.2f}")</pre>
     </div>
     
     <script>
+        // 语言切换功能 因为字数太多这里只转换部分内容
+        const translations = {
+            zh: {
+                logo: "AI技术探索",
+                navIntro: "介绍",
+                navHistory: "历史",
+                navTypes: "类型",
+                navTechnology: "技术",
+                navProducts: "主流产品",
+                navApplications: "应用",
+                navFuture: "未来",
+                heroTitle: "探索人工智能的奇妙世界",
+                heroDesc: "人工智能正在改变我们的生活方式、工作方式和思考方式。从智能手机助手到自动驾驶汽车，AI技术无处不在。",
+                startExplore: "开始探索",
+                whatIsAI: "什么是人工智能？",
+                whatIsAIDesc: "人工智能是计算机科学的一个分支，致力于创造能够模拟人类智能行为的系统",
+                humanThinking: "模拟人类思维",
+                humanThinkingDesc: "AI系统能够学习、推理、感知环境，理解语言并做出决策，模拟人类的认知能力。",
+                dataDriven: "数据驱动学习",
+                dataDrivenDesc: "通过分析大量数据，AI系统能够识别模式、提取规律，不断优化自身性能。",
+                selfImprovement: "自我完善",
+                selfImprovementDesc: "随着数据输入的增加和算法的迭代，现代AI系统能够不断学习和自我改进。",
+                historyTitle: "人工智能发展历程",
+                historyDesc: "从概念的提出到如今的广泛应用，人工智能经历了漫长而曲折的发展历程",
+                typesTitle: "人工智能的主要类型",
+                typesDesc: "根据能力范围和实现方式，人工智能可以分为不同的类型",
+                technologyTitle: "核心AI技术",
+                technologyDesc: "人工智能由多种关键技术和算法支撑，使计算机能够学习、理解和决策",
+                productsTitle: "主流人工智能产品",
+                productsDesc: "当前市场上备受瞩目的人工智能产品及服务，这些技术正在改变各行各业",
+                applicationsTitle: "人工智能的广泛应用",
+                applicationsDesc: "AI技术已经渗透到我们生活和工作的各个方面，带来了革命性的变化",
+                futureTitle: "人工智能的未来展望",
+                futureDesc: "AI技术正在快速发展，未来将带来更多可能性和挑战",
+                continueLearning: "继续学习",
+                copyright: "© 2024 AI技术探索. 保留所有权利.",
+                designer: "设计者：麻子平 | 学号：202208010326"
+            },
+            en: {
+                logo: "AI Technology Exploration",
+                navIntro: "Introduction",
+                navHistory: "History",
+                navTypes: "Types",
+                navTechnology: "Technology",
+                navProducts: "Products",
+                navApplications: "Applications",
+                navFuture: "Future",
+                heroTitle: "Explore the Wonderful World of AI",
+                heroDesc: "Artificial Intelligence is changing our way of life, work, and thinking. From smartphone assistants to self-driving cars, AI technology is everywhere.",
+                startExplore: "Start Exploring",
+                whatIsAI: "What is Artificial Intelligence?",
+                whatIsAIDesc: "AI is a branch of computer science dedicated to creating systems that can simulate human intelligent behavior",
+                humanThinking: "Simulate Human Thinking",
+                humanThinkingDesc: "AI systems can learn, reason, perceive environment, understand language and make decisions, simulating human cognitive abilities.",
+                dataDriven: "Data-Driven Learning",
+                dataDrivenDesc: "Through analyzing massive data, AI systems can identify patterns, extract rules, and continuously optimize their performance.",
+                selfImprovement: "Self-Improvement",
+                selfImprovementDesc: "With increasing data input and algorithm iteration, modern AI systems can continuously learn and self-improve.",
+                historyTitle: "History of AI Development",
+                historyDesc: "From concept proposal to widespread application, AI has gone through a long and winding development process",
+                typesTitle: "Main Types of AI",
+                typesDesc: "AI can be classified into different types based on capability scope and implementation methods",
+                technologyTitle: "Core AI Technologies",
+                technologyDesc: "AI is supported by various key technologies and algorithms that enable computers to learn, understand, and make decisions",
+                productsTitle: "Mainstream AI Products",
+                productsDesc: "Current market-leading AI products and services that are transforming various industries",
+                applicationsTitle: "Wide Applications of AI",
+                applicationsDesc: "AI technology has penetrated all aspects of our life and work, bringing revolutionary changes",
+                futureTitle: "Future Outlook of AI",
+                futureDesc: "AI technology is developing rapidly and will bring more possibilities and challenges in the future",
+                continueLearning: "Continue Learning",
+                copyright: "© 2024 AI Technology Exploration. All rights reserved.",
+                designer: "Designer: Ma Ziping | Student ID: 202208010326"
+            }
+        };
+
+        // 语言切换功能实现
+        const languageBtns = document.querySelectorAll('.language-btn');
+        let currentLang = 'zh';
+
+        function updateContent(lang) {
+            const t = translations[lang];
+            
+            // 更新导航栏
+            document.querySelector('.logo').textContent = t.logo;
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks[0].textContent = t.navIntro;
+            navLinks[1].textContent = t.navHistory;
+            navLinks[2].textContent = t.navTypes;
+            navLinks[3].textContent = t.navTechnology;
+            navLinks[4].textContent = t.navProducts;
+            navLinks[5].textContent = t.navApplications;
+            navLinks[6].textContent = t.navFuture;
+            
+            // 更新hero区域
+            document.querySelector('.hero h1').textContent = t.heroTitle;
+            document.querySelector('.hero p').textContent = t.heroDesc;
+            document.querySelector('.hero .btn').textContent = t.startExplore;
+            
+            // 更新各个section的标题和描述
+            document.querySelector('#intro .section-title h2').textContent = t.whatIsAI;
+            document.querySelector('#intro .section-title p').textContent = t.whatIsAIDesc;
+            
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards[0].querySelector('h3').textContent = t.humanThinking;
+            featureCards[0].querySelector('p').textContent = t.humanThinkingDesc;
+            featureCards[1].querySelector('h3').textContent = t.dataDriven;
+            featureCards[1].querySelector('p').textContent = t.dataDrivenDesc;
+            featureCards[2].querySelector('h3').textContent = t.selfImprovement;
+            featureCards[2].querySelector('p').textContent = t.selfImprovementDesc;
+            
+            document.querySelector('#history .section-title h2').textContent = t.historyTitle;
+            document.querySelector('#history .section-title p').textContent = t.historyDesc;
+            
+            document.querySelector('#types .section-title h2').textContent = t.typesTitle;
+            document.querySelector('#types .section-title p').textContent = t.typesDesc;
+            
+            document.querySelector('#technology .section-title h2').textContent = t.technologyTitle;
+            document.querySelector('#technology .section-title p').textContent = t.technologyDesc;
+            
+            document.querySelector('#ai-products .section-title h2').textContent = t.productsTitle;
+            document.querySelector('#ai-products .section-title p').textContent = t.productsDesc;
+            
+            document.querySelector('#applications .section-title h2').textContent = t.applicationsTitle;
+            document.querySelector('#applications .section-title p').textContent = t.applicationsDesc;
+            
+            document.querySelector('#future .section-title h2').textContent = t.futureTitle;
+            document.querySelector('#future .section-title p').textContent = t.futureDesc;
+            
+            // 更新按钮文本
+            document.querySelector('#future .btn').textContent = t.continueLearning;
+            
+            // 更新页脚
+            document.querySelector('footer p').textContent = t.copyright;
+            document.querySelector('footer p:last-child').textContent = t.designer;
+        }
+
+        languageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                if (lang !== currentLang) {
+                    currentLang = lang;
+                    languageBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateContent(lang);
+                }
+            });
+        });
+
         // 返回顶部功能
         const backToTopButton = document.getElementById('backToTop');
         
@@ -1006,6 +1334,44 @@ print(f"模型准确率: {accuracy:.2f}")</pre>
                 aiChatInput.value = '';
             }
         });
+
+        // 添加代码打字机效果
+        const neuralNetworkCode = document.getElementById('neural-network-code');
+        const codeText = neuralNetworkCode.innerHTML;
+        let currentIndex = 0;
+        let isTyping = true;
+        let cursorElement = null;
+
+        function createCursor() {
+            cursorElement = document.createElement('span');
+            cursorElement.className = 'cursor';
+            return cursorElement;
+        }
+
+        function typeCode() {
+            if (currentIndex < codeText.length) {
+                neuralNetworkCode.innerHTML = codeText.substring(0, currentIndex + 1) + createCursor().outerHTML;
+                currentIndex++;
+                setTimeout(typeCode, 50); // 控制打字速度
+            } else {
+                isTyping = false;
+                setTimeout(eraseCode, 2000); // 等待2秒后开始擦除
+            }
+        }
+
+        function eraseCode() {
+            if (currentIndex > 0) {
+                neuralNetworkCode.innerHTML = codeText.substring(0, currentIndex - 1) + createCursor().outerHTML;
+                currentIndex--;
+                setTimeout(eraseCode, 30); // 控制擦除速度
+            } else {
+                isTyping = true;
+                setTimeout(typeCode, 500); // 等待0.5秒后重新开始打字
+            }
+        }
+
+        // 启动打字效果
+        typeCode();
     </script>
 </body>
 </html> 
